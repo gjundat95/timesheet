@@ -11,7 +11,7 @@ export const addImageToDb = (id, url) => {
 export const addInfoToDb = (form, callback) => {
     let ref = 'persons/' + form.title;
     firebase.database().ref(ref).set({
-        title: form.age,
+        title: form.title,
         age: form.age,
         address: form.address,
         job: form.job,
@@ -30,6 +30,26 @@ export const loadAllImages = (callback) => {
             items.push({
                 id: child.val().id,
                 url: child.val().url,
+            });
+        });
+        console.log(items);
+        callback(items);
+    });
+};
+
+export const loadAllPerson = (callback) => {
+
+    let ref = 'persons';
+    let starCountRef = firebase.database().ref(ref);
+
+    starCountRef.on('value', function (snapshot) {
+        var items = [];
+        snapshot.forEach((child) => {
+            items.push({
+                title: child.val().title,
+                age: child.val().age,
+                address: child.val().address,
+                job: child.val().job,
             });
         });
         console.log(items);

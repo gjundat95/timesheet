@@ -85,6 +85,16 @@ export default class Home extends Component {
           </View>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={()=>{
+            this.props.navigation.navigate('ListForm',{});
+          }}
+        >
+          <View style={styles.button}>
+            <Text style={styles.textInButton}>Start List Form</Text>
+          </View>
+        </TouchableOpacity>
+
       </View>
     );
   }
