@@ -1,18 +1,32 @@
-import { LOGIN, LOGOUT} from '../types';
+import { LOGIN, LOGOUT, REQUEST, REQUEST_SUCCESS, REQUEST_ERROR} from '../types';
 
-export function login(account) {
+export function login() {
   return {
-    type: LOGIN,
-    account: {
-      username: account.username,
-      password: account.password
-    }
+    type: LOGIN
   }
 }
 
-export function logout(username) {
+export function logout() {
   return {
-    type: LOGOUT,
-    username
+    type: LOGOUT
+  }
+}
+
+export function request() {
+  return {
+    type: REQUEST
+  }
+}
+
+export function requestSuccess() {
+  return {
+    type: REQUEST_SUCCESS
+  }
+}
+
+export function requestError(errorMessage) {
+  return {
+    type: REQUEST_ERROR,
+    errorMessage
   }
 }

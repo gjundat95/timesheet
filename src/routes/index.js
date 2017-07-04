@@ -1,5 +1,5 @@
 import { HomeScreen } from './Home';
-import { LoginScreen } from './Login';
+import LoginScreen from './Login';
 import { StackNavigator } from 'react-navigation';
 
 const RouteConfigs = {
