@@ -1,31 +1,100 @@
 import React, { Component } from 'react';
-import { StackNavigator } from 'react-navigation';
-import ImagePicker from 'react-native-image-picker'
-import { uploadImage } from '../../config/firebase';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  Alert,
+  AsyncStorage
+} from 'react-native';
 
-export class LoginScreen extends Component {
+import { login, register } from '../../config/firebase';
+import { set, get } from '../../util/AsyncStore';
 
-  _pickImage() {
-    this.setState({ uploadURL: '' })
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: 'tinhngo@gmail.com',
+      password: '123456',
+    }
+  };
 
-    ImagePicker.launchImageLibrary({}, response  => {
-      uploadImage(response.uri)
-        .then(url => this.setState({ uploadURL: url }))
-        .catch(error => console.warn(error))
-    })
-  }
+  componentWillMount() {
+  };
+
+  componentDidMount() {
+
+  };
+
+  _changeUsername = username => {
+    this.setState({ username });
+  };
+
+  _changePassword = password => {
+    this.setState({ password });
+  };
+
+  _btnRegister = () => {
+    register(this.state.username, this.state.password, (res) => {
+      if (!res.isSuccess) {
+        Alert.alert("Error: " + res.message);
+      } else {
+        Alert.alert("Register Success");
+      }
+    });
+  };
+
+  _btnLogin = () => {
+    login(this.state.username, this.state.password, (res) => {
+      if (!res.isSuccess) {
+        Alert.alert('Error: ' + res.message);
+      } else {
+        Alert.alert('Login success');
+        set('Key_Login', 'true');
+        this.props.navigation.navigate('Home', {});
+      }
+    });
+  };
 
   render() {
     return (
-       <View style={ styles.container }>
-        <TouchableOpacity onPress={ () => this._pickImage() }>
-          <Text style={ styles.upload }>
-            Upload
-          </Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <Text style={styles.textLogin}>MyTimeSheet</Text>
+        <View style={styles.login}>
+          <TextInput
+            value={this.state.username}
+            onChangeText={this._changeUsername}
+            style={styles.textInput}
+          />
+          <TextInput
+            value={this.state.password}
+            onChangeText={this._changePassword}
+            style={styles.textInput}
+          />
+
+          <TouchableOpacity
+            onPress={this._btnRegister}
+          >
+            <View style={styles.button}>
+              <Text style={styles.textInButton}>Register</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={this._btnLogin}
+          >
+            <View style={styles.button}>
+              <Text style={styles.textInButton}>Login</Text>
+            </View>
+          </TouchableOpacity>
+
+        </View>
+
       </View>
-    )
+    );
   }
 }
 
@@ -34,14 +103,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  upload: {
-    textAlign: 'center',
-    color: '#333333',
-    padding: 10,
-    marginBottom: 5,
-    borderWidth: 1,
-    borderColor: 'gray'
+  login: {
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-})
+  textLogin: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black'
+  },
+  textInput: {
+    minWidth: 300,
+    minHeight: 50,
+    padding: 8,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  button: {
+    backgroundColor: '#467ac9',
+    minWidth: 300,
+    minHeight: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  textInButton: {
+    color: 'white',
+    fontWeight: 'bold'
+  }
+
+});
