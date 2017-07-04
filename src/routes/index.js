@@ -2,24 +2,25 @@ import { HomeScreen } from './Home';
 import { LoginScreen } from './Login';
 import { StackNavigator } from 'react-navigation';
 
-export const Navigation = StackNavigator(RouteConfigs, StackNavigatorConfig);
-
 const RouteConfigs = {
 
   Login: {
     screen: LoginScreen,
     navigationOptions: {
-      title: 'Home'
+      title: 'Login'
     }
   },
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      title: 'Login'
+      title: 'Home'
     }
   }
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: LoginScreen
+  initialRouteName: 'Login'
 };
+
+export const Navigation = StackNavigator(RouteConfigs, StackNavigatorConfig);
+
