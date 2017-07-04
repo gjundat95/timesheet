@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import * as firebase from '../../config/firebase/index';
+import { logout } from '../../config/firebase/auth';
 import { set, get } from '../../util/AsyncStore';
 
 export default class Home extends Component {
@@ -41,8 +42,8 @@ export default class Home extends Component {
 
   _btnLogout = () => {
     Alert.alert('Logout success');
-    firebase.logout().then(function (res) {
-      firebase.logout();
+    logout().then(function (res) {
+      logout();
     });
     set('Key_Login', 'false');
     this.componentWillReceiveProps();
@@ -57,6 +58,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
+
         <TouchableOpacity
           onPress={this._btnLogout}
         >
@@ -64,11 +66,22 @@ export default class Home extends Component {
             <Text style={styles.textInButton}>Logout</Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={this._btnStartImage}
         >
           <View style={styles.button}>
             <Text style={styles.textInButton}>Add Image</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={()=>{
+            this.props.navigation.navigate('Form',{});
+          }}
+        >
+          <View style={styles.button}>
+            <Text style={styles.textInButton}>Start Form</Text>
           </View>
         </TouchableOpacity>
 

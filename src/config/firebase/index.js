@@ -10,51 +10,6 @@ const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
-export const register = async (email, password, callback) => {
-    let res = {
-        isSuccess: true,
-        message: 'success'
-    }
-    try {
-        await firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function () {
-                callback(res);
-            })
-            .catch(function (error) {
-                callback({ isSuccess: false, message: '' + error.message });
-            });
-    } catch (error) {
-        callback({ isSuccess: false, message: '' + error });
-    }
-};
-
-export const login = async (email, password, callback) => {
-    let res = {
-        isSuccess: true,
-        message: 'success'
-    }
-    try {
-        await firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(function () {
-                callback(res);
-            })
-            .catch(function (error) {
-                callback({ isSuccess: false, message: '' + error.message });
-            });
-
-    } catch (error) {
-        callback({ isSuccess: false, message: '' + error });
-    }
-};
-
-export const logout = async () => {
-    try {
-        await firebase.auth().signOut();
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 export const uploadImage = (uri, mime = 'application/octet-stream') => {
   return new Promise((resolve, reject) => {
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
@@ -72,16 +27,16 @@ export const uploadImage = (uri, mime = 'application/octet-stream') => {
       })
       .then(() => {
         uploadBlob.close()
-        console.warn(imageRef.getDownloadURL());
+        //console.warn(imageRef.getDownloadURL());
         return imageRef.getDownloadURL();
       })
       .then((url) => {
-        console.warn('thanh cong: '+url);
         addImageToDb(sessionId, url);
+        //console.warn('Upload thanh cong: '+url);
         resolve(url)
       })
       .catch((error) => {
-        console.warn('loi: '+error);
+        //console.warn('loi: '+error);
         reject(error)
     })
   })

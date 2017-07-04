@@ -10,7 +10,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import { login, register } from '../../config/firebase';
+import { login, register } from '../../config/firebase/auth';
 import { set, get } from '../../util/AsyncStore';
 
 export default class Login extends Component {
