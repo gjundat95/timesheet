@@ -1,5 +1,4 @@
-import  HomeScreen from './Home/index';
-import  LoginScreen  from './Login/index';
+import  HomeScreen from '../container/home/HomeContainer';
 import  UploadScreen  from './Upload/index';
 import  FormScreen  from './Form/index';
 import  ListFormScreen  from './Form/ListForm';
@@ -24,7 +23,6 @@ const RouteConfigs = {
     screen: FormScreen,
    navigationOptions: {
       title: 'Form',
-      headerLeft: null,
     }
   },
   ListForm: {

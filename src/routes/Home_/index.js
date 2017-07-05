@@ -4,7 +4,7 @@
  * @flow
  */
 import React, { Component } from 'react';
-import {LOGIN, LOGOUT } from '../../actions/types/index';
+import { LOGIN, LOGOUT } from '../../actions/types/AuthType';
 import { connect } from 'react-redux';
 import {
   StyleSheet,

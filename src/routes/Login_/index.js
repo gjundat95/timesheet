@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {LOGIN, LOGOUT } from '../../actions/types/index';
+import {LOGIN, LOGOUT } from '../../actions/types/AuthType';
 import { connect } from 'react-redux';
 import {
   StyleSheet,
@@ -15,7 +15,7 @@ import {
 import { login, register } from '../../config/firebase/auth';
 import { set, get } from '../../util/AsyncStore';
 
-class Login extends Component {
+class LoginView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,10 +152,3 @@ const styles = StyleSheet.create({
 
 });
 
-export default connect(
-  state => {
-    return{
-      authentication: state.authentication,
-    }
-  }
-)(Login);

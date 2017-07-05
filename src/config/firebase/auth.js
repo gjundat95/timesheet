@@ -9,12 +9,15 @@ export const register = async (email, password, callback) => {
     try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(function () {
+                console.log('register success');
                 callback(res);
             })
             .catch(function (error) {
+                console.log('register failed');
                 callback({ isSuccess: false, message: '' + error.message });
             });
     } catch (error) {
+        console.log('register failed2');
         callback({ isSuccess: false, message: '' + error });
     }
 };
