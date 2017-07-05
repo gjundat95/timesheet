@@ -25,28 +25,17 @@ export default class Home extends Component {
   };
 
   componentWillMount() {
-    this.checkLogin();
   };
 
   componentWillReceiveProps() {
-    this.checkLogin();
   }
 
-  checkLogin = () => {
-    get('Key_Login').then(value => {
-      if (value === 'false') {
-        this.props.navigation.navigate('Login', {});
-      }
-    });
-  };
-
   _btnLogout = () => {
-    Alert.alert('Logout success');
-    logout().then(function (res) {
-      logout();
+    logout((res)=>{
+      Alert.alert(res);
+      this.props.navigation.navigate('Login',{});
     });
-    set('Key_Login', 'false');
-    this.componentWillReceiveProps();
+    
   };
 
   _btnStartImage = () => {

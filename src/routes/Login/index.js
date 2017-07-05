@@ -23,10 +23,19 @@ export default class Login extends Component {
   };
 
   componentWillMount() {
+    this.checkLogin();
   };
 
   componentDidMount() {
 
+  };
+
+  checkLogin = () => {
+    get('Key_Login').then(value => {
+      if (value === 'true') {
+        this.props.navigation.navigate('Home', {});
+      }
+    });
   };
 
   _changeUsername = username => {
@@ -53,7 +62,6 @@ export default class Login extends Component {
         Alert.alert('Error: ' + res.message);
       } else {
         Alert.alert('Login success');
-        set('Key_Login', 'true');
         this.props.navigation.navigate('Home', {});
       }
     });

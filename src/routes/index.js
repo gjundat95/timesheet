@@ -10,7 +10,8 @@ const RouteConfigs = {
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      title: 'Home'
+      title: 'Home',
+      headerLeft: null,
     }
   },
   Login: {
@@ -46,7 +47,7 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: 'Home'
+  initialRouteName: 'Login'
 };
 
 export const Navigation = StackNavigator(RouteConfigs, StackNavigatorConfig);

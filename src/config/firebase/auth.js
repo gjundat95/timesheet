@@ -1,4 +1,5 @@
 import { firebase } from '../firebase/config';
+import { set, get } from '../../util/AsyncStore';
 
 export const register = async (email, password, callback) => {
     let res = {
@@ -26,21 +27,32 @@ export const login = async (email, password, callback) => {
     try {
         await firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function () {
+                set('Key_Login', 'true');
                 callback(res);
             })
             .catch(function (error) {
                 callback({ isSuccess: false, message: '' + error.message });
             });
+            
 
     } catch (error) {
         callback({ isSuccess: false, message: '' + error });
     }
 };
 
-export const logout = async () => {
+export const logout = async (callback) => {
     try {
-        await firebase.auth().signOut();
+        await firebase.auth().signOut()
+        .then(()=>{
+            set('Key_Login', 'false');
+            callback('logout sucess');
+        }).catch((error)=>{
+            //callback(error);
+            console.warn(error);
+        });
+        
     } catch (error) {
-        console.log(error);
+        console.warn(error);
+        //callback(error);
     }
 }
