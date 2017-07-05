@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {LOGIN, LOGOUT } from '../../actions/types/index';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   Text,
@@ -13,7 +15,7 @@ import {
 import { login, register } from '../../config/firebase/auth';
 import { set, get } from '../../util/AsyncStore';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +35,10 @@ export default class Login extends Component {
   checkLogin = () => {
     get('Key_Login').then(value => {
       if (value === 'true') {
-        this.props.navigation.navigate('Home', {});
+        //this.props.navigation.navigate('Home', {});
+        this.props.dispatch({
+          type: LOGIN
+        });
       }
     });
   };
@@ -62,7 +67,9 @@ export default class Login extends Component {
         Alert.alert('Error: ' + res.message);
       } else {
         Alert.alert('Login success');
-        this.props.navigation.navigate('Home', {});
+        this.props.dispatch({
+          type: LOGIN
+        });
       }
     });
   };
@@ -144,3 +151,11 @@ const styles = StyleSheet.create({
   }
 
 });
+
+export default connect(
+  state => {
+    return{
+      authentication: state.authentication,
+    }
+  }
+)(Login);

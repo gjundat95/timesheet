@@ -14,12 +14,6 @@ const RouteConfigs = {
       headerLeft: null,
     }
   },
-  Login: {
-    screen: LoginScreen,
-    navigationOptions: {
-      title: 'Login'
-    }
-  },
   Upload: {
     screen: UploadScreen,
     navigationOptions: {
@@ -28,8 +22,9 @@ const RouteConfigs = {
   },
   Form: {
     screen: FormScreen,
-    navigationOptions: {
-      title: 'Form'
+   navigationOptions: {
+      title: 'Form',
+      headerLeft: null,
     }
   },
   ListForm: {
@@ -47,7 +42,7 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: 'Login'
+  initialRouteName: 'Home'
 };
 
 export const Navigation = StackNavigator(RouteConfigs, StackNavigatorConfig);

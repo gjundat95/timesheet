@@ -3,8 +3,9 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
 import React, { Component } from 'react';
+import {LOGIN, LOGOUT } from '../../actions/types/index';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   Text,
@@ -18,7 +19,7 @@ import * as firebase from '../../config/firebase/index';
 import { logout } from '../../config/firebase/auth';
 import { set, get } from '../../util/AsyncStore';
 
-export default class Home extends Component {
+class Home extends Component {
 
   constructor(props) {
     super(props);
@@ -33,7 +34,9 @@ export default class Home extends Component {
   _btnLogout = () => {
     logout((res)=>{
       Alert.alert(res);
-      this.props.navigation.navigate('Login',{});
+      this.props.dispatch({
+          type: LOGOUT,
+      });
     });
     
   };
@@ -111,3 +114,10 @@ const styles = StyleSheet.create({
   },
 });
 
+export default connect(
+  state => {
+    return{
+      authentication: state.authentication,
+    }
+  }
+)(Home);

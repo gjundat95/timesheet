@@ -1,18 +1,13 @@
 import { LOGIN, LOGOUT} from '../types';
 
-export function login(account) {
+export function login() {
   return {
-    type: LOGIN,
-    account: {
-      username: account.username,
-      password: account.password
-    }
+    type: LOGIN
   }
 }
 
-export function logout(username) {
+export function logout() {
   return {
-    type: LOGOUT,
-    username
+    type: LOGOUT
   }
 }
