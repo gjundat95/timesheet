@@ -61,9 +61,8 @@ export default class Upload extends Component {
           data={this.state.data}
           renderItem={({ item }) =>
             <View style={styles.row}>
-              <Text>ID Image: {item.id}</Text>
               <Image
-                style={{ width: 200, height: 200 }}
+                style={{ width: 250, height: 300 }}
                 source={{ uri: item.url }}
               />
             </View>
@@ -88,12 +87,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'stretch',
   },
   upload: {
     textAlign: 'center',
     color: '#333333',
+    fontWeight: 'bold',
     padding: 10,
     marginBottom: 5,
     borderWidth: 1,

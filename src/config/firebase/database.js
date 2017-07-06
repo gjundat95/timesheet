@@ -1,17 +1,18 @@
 import { firebase } from '../firebase/config';
 
-export const addImageToDb = (id, url) => {
-    let ref = 'images/' + id;
+export const addImageToDb = (form) => {
+    let ref = 'images/' + form.key;
     firebase.database().ref(ref).set({
-        id: id,
-        url: url,
+        key: form.key,
+        url: form.url,
     });
 };
 
 export const addInfoToDb = (form, callback) => {
-    let ref = 'persons/' + form.title;
+    let ref = 'persons/' + form.key;
     firebase.database().ref(ref).set({
-        title: form.title,
+        key: form.key,
+        name: form.name,
         age: form.age,
         address: form.address,
         job: form.job,
@@ -28,7 +29,7 @@ export const loadAllImages = (callback) => {
         var items = [];
         snapshot.forEach((child) => {
             items.push({
-                id: child.val().id,
+                key: child.val().key,
                 url: child.val().url,
             });
         });
@@ -46,7 +47,8 @@ export const loadAllPerson = (callback) => {
         var items = [];
         snapshot.forEach((child) => {
             items.push({
-                title: child.val().title,
+                key: child.val().key,
+                name: child.val().name,
                 age: child.val().age,
                 address: child.val().address,
                 job: child.val().job,

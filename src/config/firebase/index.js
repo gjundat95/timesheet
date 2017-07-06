@@ -31,7 +31,10 @@ export const uploadImage = (uri, mime = 'application/octet-stream') => {
         return imageRef.getDownloadURL();
       })
       .then((url) => {
-        addImageToDb(sessionId, url);
+        addImageToDb({
+          key: sessionId,
+          url: url,
+        });
         //console.warn('Upload thanh cong: '+url);
         resolve(url)
       })

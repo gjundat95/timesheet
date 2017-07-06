@@ -18,14 +18,14 @@ export default class ListForm extends Component {
             data: [],
             refresh: false,
         }
+
+    }
+
+    componentWillMount() {
         loadAllPerson((items) => {
             console.log(items);
             this.setState({ data: items });
         });
-    }
-
-    componentWillMount() {
- 
 
     };
 
@@ -42,19 +42,19 @@ export default class ListForm extends Component {
             <View style={styles.container}>
 
                 <FlatList
-                    style={{flex:1, }}
+                    style={{ flex: 1, }}
                     refreshing={this.state.refresh}
                     onRefresh={() => { this.refresh() }}
-
                     data={this.state.data}
+                    
                     renderItem={({ item }) =>
                         <View style={styles.row}>
-                            <Text>Title: {item.title}</Text>
+                            <Text>Name: {item.name}</Text>
                             <Text>Age: {item.age}</Text>
                             <Text>Address: {item.address}</Text>
                             <Text>Job: {item.job}</Text>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('Detail',{...item}) }
+                                onPress={() => this.props.navigation.navigate('Detail', { ...item })}
                                 style={styles.button}
                             >
                                 <Text style={styles.textInButton}>
@@ -65,7 +65,7 @@ export default class ListForm extends Component {
                     }
 
                 //horizontal= {false}
-                //numColumns= {3}
+                numColumns= {1}
                 />
 
             </View>

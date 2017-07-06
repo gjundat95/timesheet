@@ -31,6 +31,7 @@ export default class Home extends Component {
   _btnLogout = () => {
     logout((res)=>{
       Alert.alert(res);
+      console.log(this.props);
       this.props.logout();
     });
     
@@ -38,8 +39,6 @@ export default class Home extends Component {
 
   _btnStartImage = () => {
     this.props.navigation.navigate('Upload',{});
-    Alert.alert('start database');
-    //addImageToDb('2','tinh ngo doan 2 ');
   };
 
   render() {

@@ -6,26 +6,31 @@ import HomeView from '../../components/home/HomeView';
 import { logout } from '../../actions/action-creator/AuthAction';
 
 class HomeContainer extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
-    render(){
-        return(
-            <HomeView {...this.props} />
+    render() {
+        return (
+            <HomeView val = {hello()} {...this.props} />
         )
     }
 }
+// func
+hello = () => {
+    //console.log('hello moto');
+
+};
 
 export default connect(
-  state => {
-    return{
-      authentication: state.authentication,
+    state => {
+        return {
+            authentication: state.authentication,
+        }
+    },
+    dispatch => {
+        return {
+            login: () => dispatch(login()),
+            logout: () => dispatch(logout()),
+        }
     }
-  },
-  dispatch => {
-      return {
-          login: () => dispatch(login()),
-          logout: () => dispatch(logout()),
-      }
-  }
 )(HomeContainer);

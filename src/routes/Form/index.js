@@ -15,7 +15,8 @@ export default class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "",
+            sessionId: "",
+            name: "",
             age: "",
             address: "",
             job: "",
@@ -23,8 +24,10 @@ export default class Form extends Component {
     }
 
     _addTask=()=>{
+        let sessionId = new Date().getTime();
         addInfoToDb({
-            title: this.state.title,
+            key: sessionId,
+            name: this.state.name,
             age: this.state.age,
             address: this.state.address,
             job: this.state.job
@@ -40,8 +43,8 @@ export default class Form extends Component {
                 <View style={styles.subView}>
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Title"
-                        onChangeText={(title) => this.setState({ title })}
+                        placeholder="Name"
+                        onChangeText={(name) => this.setState({ name })}
                     />
                     <TextInput
                         style={styles.textInput}
